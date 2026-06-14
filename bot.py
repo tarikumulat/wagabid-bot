@@ -9,9 +9,11 @@ bot = telebot.TeleBot(TOKEN)
 # /start command
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(
+
+    bot.send_photo(
         message.chat.id,
-        "🚀 WagaBid Bot is online!"
+        photo=open("logo.png", "rb"),
+        caption="🚀 Welcome to WagaBid!"
     )
 
 
