@@ -36,7 +36,7 @@ def start(message):
     )
 
     oromo_btn = types.InlineKeyboardButton(
-        "🇪🇹 Afaan Oromo",
+        "🇪🇹 Afaan Oromo ",
         callback_data="oromo"
     )
 
