@@ -25,7 +25,7 @@ def start(message):
 
     markup.row("🇬🇧 English")
     markup.row("🇪🇹 አማርኛ")
-    markup.row("🟢 Afaan Oromo")
+    markup.row("🇪🇹 Afaan Oromo")
 
     bot.send_message(
         message.chat.id,
@@ -54,7 +54,7 @@ def language_selector(message):
             "ወደ WagaBid እንኳን በደህና መጡ 🚀"
         )
 
-    elif message.text == "🟢 Afaan Oromo":
+    elif message.text == "🇪🇹 Afaan Oromo":
 
         bot.send_message(
             message.chat.id,
