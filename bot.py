@@ -12,52 +12,63 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def start(message):
 
-    # Show logo first
+    # Show logo
     bot.send_photo(
         message.chat.id,
         photo=open("logo.png", "rb")
     )
 
-    # Language selector buttons
-    markup = types.ReplyKeyboardMarkup(
-        resize_keyboard=True
+    # Inline buttons
+    markup = types.InlineKeyboardMarkup()
+
+    btn1 = types.InlineKeyboardButton(
+        "🇬🇧 English",
+        callback_data="english"
     )
 
-    markup.row("🇬🇧 English")
-    markup.row("🇪🇹 አማርኛ")
-    markup.row("🇪🇹 Afaan Oromo")
+    btn2 = types.InlineKeyboardButton(
+        "🇪🇹 አማርኛ",
+        callback_data="amharic"
+    )
+
+    btn3 = types.InlineKeyboardButton(
+        "🟢 Afaan Oromo",
+        callback_data="oromo"
+    )
+
+    markup.add(btn1)
+    markup.add(btn2)
+    markup.add(btn3)
 
     bot.send_message(
         message.chat.id,
-        "Choose Language\n\n"
-        "ቋንቋ ይምረጡ\n\n"
-        "Afaan filadhaa",
+        "Choose Language",
         reply_markup=markup
     )
 
 
-# LANGUAGE HANDLER
-@bot.message_handler(func=lambda message: True)
-def language_selector(message):
+# BUTTON HANDLER
+@bot.callback_query_handler(func=lambda call: True)
+def callback(call):
 
-    if message.text == "🇬🇧 English":
+    if call.data == "english":
 
         bot.send_message(
-            message.chat.id,
+            call.message.chat.id,
             "Welcome to WagaBid 🚀"
         )
 
-    elif message.text == "🇪🇹 አማርኛ":
+    elif call.data == "amharic":
 
         bot.send_message(
-            message.chat.id,
+            call.message.chat.id,
             "ወደ WagaBid እንኳን በደህና መጡ 🚀"
         )
 
-    elif message.text == "🇪🇹 Afaan Oromo":
+    elif call.data == "oromo":
 
         bot.send_message(
-            message.chat.id,
+            call.message.chat.id,
             "Baga gara WagaBid dhuftan 🚀"
         )
 
