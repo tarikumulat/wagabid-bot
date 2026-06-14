@@ -16,13 +16,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def start(message):
 
-    # Show Logo
-    bot.send_photo(
-        message.chat.id,
-        photo=open("logo.png", "rb")
-    )
-
-    # Inline Language Buttons
+    # Language Buttons First
     markup = types.InlineKeyboardMarkup(row_width=1)
 
     english_btn = types.InlineKeyboardButton(
@@ -36,7 +30,7 @@ def start(message):
     )
 
     oromo_btn = types.InlineKeyboardButton(
-        "🇪🇹 Afaan Oromo ",
+        "🟢 Afaan Oromo",
         callback_data="oromo"
     )
 
@@ -61,36 +55,49 @@ def start(message):
 @bot.callback_query_handler(func=lambda call: True)
 def language_selector(call):
 
-    # Remove old buttons
+    # Remove language buttons
     bot.edit_message_reply_markup(
         call.message.chat.id,
         call.message.message_id,
         reply_markup=None
     )
 
+    # =====================
     # ENGLISH
+    # =====================
     if call.data == "english":
 
-        bot.send_message(
+        # Show Logo
+        bot.send_photo(
             call.message.chat.id,
+            photo=open("logo.png", "rb"),
+            caption=
             "🚀 Welcome to WagaBid!\n\n"
             "The Smart Reverse Auction Marketplace."
         )
 
+    # =====================
     # AMHARIC
+    # =====================
     elif call.data == "amharic":
 
-        bot.send_message(
+        bot.send_photo(
             call.message.chat.id,
+            photo=open("logo.png", "rb"),
+            caption=
             "🚀 ወደ WagaBid እንኳን በደህና መጡ!\n\n"
             "ዘመናዊ የReverse Auction ገበያ"
         )
 
+    # =====================
     # OROMO
+    # =====================
     elif call.data == "oromo":
 
-        bot.send_message(
+        bot.send_photo(
             call.message.chat.id,
+            photo=open("logo.png", "rb"),
+            caption=
             "🚀 Baga gara WagaBid dhuftan!\n\n"
             "Gabaa Reverse Auction ammayyaa."
         )
